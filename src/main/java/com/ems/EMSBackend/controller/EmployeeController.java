@@ -3,23 +3,26 @@ package com.ems.EMSBackend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.codingchallenge.application.model.Enrollee;
 import com.ems.EMSBackend.model.Employee;
 import com.ems.EMSBackend.repository.EmployeeRepository;
 import com.ems.EMSBackend.service.EmployeeService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-//@RequestMapping("employee/")
+@RequestMapping("ems/")
 public class EmployeeController {
 
 	@Autowired
@@ -52,5 +55,39 @@ public class EmployeeController {
 		}
 		
 		return false; //not found
+	}
+	
+	//Modify an existing employee [by id]
+	@PutMapping("/update")
+	public Employee updateEnrollee(@RequestBody Employee u){
+		Employee toBeUpdated = es.findEmployeeById(u.getId());
+		
+		if(toBeUpdated!=null) {
+			if(u.getFname()!=null) {
+				toBeUpdated.setFname(u.getFname());
+			}
+			
+			if(u.getLname()!=null) {
+				toBeUpdated.setLname(u.getLname());
+			}
+			
+			if(u.getDepartment()!=null) {
+				toBeUpdated.setDepartment(u.getDepartment());
+			}
+			
+			if(u.getContactNumber()!=null) {
+				toBeUpdated.setContactNumber(u.getContactNumber());
+			}
+			if(u.getSalary()!= 0) {
+				toBeUpdated.setSalary(u.getSalary());
+			}
+			
+			es.addEmployee(toBeUpdated);//update existing record in db
+			return toBeUpdated;
+		}
+		else {
+			//could not find employee with associated id, so update cant be performed
+			return null;
+		}
 	}
 }
