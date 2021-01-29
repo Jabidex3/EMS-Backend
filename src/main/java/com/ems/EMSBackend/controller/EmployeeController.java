@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.codingchallenge.application.model.Enrollee;
 import com.ems.EMSBackend.model.Employee;
 import com.ems.EMSBackend.repository.EmployeeRepository;
 import com.ems.EMSBackend.service.EmployeeService;
@@ -32,6 +31,16 @@ public class EmployeeController {
 	@GetMapping("employees")
 	public List<Employee> getEmployees(){
 		return this.es.findAll();
+	}
+	
+	//get employee by id
+	@GetMapping("employee/{id}")
+	public Employee getEmployee(@PathVariable int id){
+		Employee emp = es.findEmployeeById(id);
+		if(emp != null) {
+			return emp;
+		}
+		return null;
 	}
 	
 	//add a new employee
