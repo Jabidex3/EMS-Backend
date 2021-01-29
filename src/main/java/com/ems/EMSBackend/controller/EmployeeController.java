@@ -58,7 +58,7 @@ public class EmployeeController {
 		List<Employee> allEmp = es.findAll();
 		for(int i =0;i<allEmp.size();i++) {
 			if(allEmp.get(i).getId()==id) {
-				allEmp.remove(i);
+				es.delete(allEmp.get(i).getId());
 				return true;
 			}
 		}
