@@ -10,3 +10,5 @@ This application was created using Eclipse IDE for Java EE Developers. In order 
  - Import the project into Eclipse IDE
  - Run EmsBackendApplication.java as a Spring boot App or Java Application
 
+### REST API Documentation:
+https://documenter.getpostman.com/view/13128470/TWDUoxNP
