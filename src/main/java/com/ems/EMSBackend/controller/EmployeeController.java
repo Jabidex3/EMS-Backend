@@ -29,13 +29,13 @@ public class EmployeeController {
 	
 	//get all employees
 	@GetMapping("employees")
-	public List<Employee> getEmployees(){
+	public List<Employee> getAllEmployees(){
 		return this.es.findAll();
 	}
 	
 	//get employee by id
 	@GetMapping("employee/{id}")
-	public Employee getEmployee(@PathVariable int id){
+	public Employee getEmployeeById(@PathVariable int id){
 		Employee emp = es.findEmployeeById(id);
 		if(emp != null) {
 			return emp;
@@ -45,7 +45,7 @@ public class EmployeeController {
 	
 	//add a new employee
 	@PostMapping("add")
-	public Employee addEmployee(@RequestBody Employee e){
+	public Employee addNewEmployee(@RequestBody Employee e){
 //		Employee newEmp = new Employee();
 //		return newEmp;
 		es.addEmployee(e);
@@ -68,7 +68,7 @@ public class EmployeeController {
 	
 	//Modify an existing employee [by id]
 	@PutMapping("/update")
-	public Employee updateEnrollee(@RequestBody Employee u){
+	public Employee updateEmployee(@RequestBody Employee u){
 		Employee toBeUpdated = es.findEmployeeById(u.getId());
 		
 		if(toBeUpdated!=null) {
